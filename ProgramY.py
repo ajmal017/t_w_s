@@ -253,7 +253,7 @@ class TestApp(TestWrapper, TestClient):
             # self.tickDataOperations_req()
             # self.marketDepthOperations_req()
             # self.realTimeBars_req()
-            self.historicalDataRequests_req()
+            # self.historicalDataRequests_req()
             # self.optionsOperations_req()
             # self.marketScanners_req()
             # self.reutersFundamentals_req()
@@ -263,7 +263,7 @@ class TestApp(TestWrapper, TestClient):
             # self.miscelaneous_req()
             # self.linkingOperations()
             # self.financialAdvisorOperations()
-            # self.orderOperations_req()
+            self.orderOperations_req()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -779,7 +779,7 @@ class TestApp(TestWrapper, TestClient):
         self.reqHistoricalData(4002, ContractSamples.SI(), queryTime,
                                "10 D", "1 min", "TRADES", 1, 1, [])
         # # ! [reqhistoricaldata]
-        # 
+        #
         # # ! [reqHistogramData]
         # self.reqHistogramData(4104, ContractSamples.USStock(), False, "3 days")
         # # ! [reqHistogramData]
@@ -1421,121 +1421,121 @@ class TestApp(TestWrapper, TestClient):
         # to orderStatus and openOrder to this client.
 
         # ! [order_submission]
-        self.simplePlaceOid = self.nextOrderId()
-        self.placeOrder(self.simplePlaceOid, ContractSamples.USStock(),
-                        OrderSamples.LimitOrder("SELL", 1, 50))
-        # ! [order_submission]
+        # self.simplePlaceOid = self.nextOrderId()
+        # self.placeOrder(self.simplePlaceOid, ContractSamples.USStock(),
+        #                 OrderSamples.LimitOrder("SELL", 1, 50))
+        # # ! [order_submission]
 
         # ! [faorderoneaccount]
-        faOrderOneAccount = OrderSamples.MarketOrder("BUY", 100)
+        faOrderOneAccount = OrderSamples.MarketOrder("BUY", 2)
         # Specify the Account Number directly
-        faOrderOneAccount.account = "DU119915"
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), faOrderOneAccount)
+        faOrderOneAccount.account = "DU307360"
+        self.placeOrder(self.nextOrderId(), ContractSamples.SI(), faOrderOneAccount)
         # ! [faorderoneaccount]
 
-        # ! [faordergroupequalquantity]
-        faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000)
-        faOrderGroupEQ.faGroup = "Group_Equal_Quantity"
-        faOrderGroupEQ.faMethod = "EqualQuantity"
-        self.placeOrder(self.nextOrderId(), ContractSamples.SimpleFuture(), faOrderGroupEQ)
-        # ! [faordergroupequalquantity]
+        # # ! [faordergroupequalquantity]
+        # faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000)
+        # faOrderGroupEQ.faGroup = "Group_Equal_Quantity"
+        # faOrderGroupEQ.faMethod = "EqualQuantity"
+        # self.placeOrder(self.nextOrderId(), ContractSamples.SimpleFuture(), faOrderGroupEQ)
+        # # ! [faordergroupequalquantity]
 
-        # ! [faordergrouppctchange]
-        faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0)
-        # You should not specify any order quantity for PctChange allocation method
-        faOrderGroupPC.faGroup = "Pct_Change"
-        faOrderGroupPC.faMethod = "PctChange"
-        faOrderGroupPC.faPercentage = "100"
-        self.placeOrder(self.nextOrderId(), ContractSamples.EurGbpFx(), faOrderGroupPC)
-        # ! [faordergrouppctchange]
+        # # ! [faordergrouppctchange]
+        # faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0)
+        # # You should not specify any order quantity for PctChange allocation method
+        # faOrderGroupPC.faGroup = "Pct_Change"
+        # faOrderGroupPC.faMethod = "PctChange"
+        # faOrderGroupPC.faPercentage = "100"
+        # self.placeOrder(self.nextOrderId(), ContractSamples.EurGbpFx(), faOrderGroupPC)
+        # # ! [faordergrouppctchange]
 
-        # ! [faorderprofile]
-        faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100)
-        faOrderProfile.faProfile = "Percent_60_40"
-        self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), faOrderProfile)
-        # ! [faorderprofile]
-
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
-                        OrderSamples.Block("BUY", 50, 20))
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
-                        OrderSamples.BoxTop("SELL", 10))
-        self.placeOrder(self.nextOrderId(), ContractSamples.FutureComboContract(),
-                        OrderSamples.ComboLimitOrder("SELL", 1, 1, False))
-        self.placeOrder(self.nextOrderId(), ContractSamples.StockComboContract(),
-                        OrderSamples.ComboMarketOrder("BUY", 1, True))
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionComboContract(),
-                        OrderSamples.ComboMarketOrder("BUY", 1, False))
-        self.placeOrder(self.nextOrderId(), ContractSamples.StockComboContract(),
-                        OrderSamples.LimitOrderForComboWithLegPrices("BUY", 1, [10, 5], True))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.Discretionary("SELL", 1, 45, 0.5))
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
-                        OrderSamples.LimitIfTouched("BUY", 1, 30, 34))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.LimitOnClose("SELL", 1, 34))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.LimitOnOpen("BUY", 1, 35))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketIfTouched("BUY", 1, 30))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketOnClose("SELL", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketOnOpen("BUY", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketOrder("SELL", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketToLimit("BUY", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtIse(),
-                        OrderSamples.MidpointMatch("BUY", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.MarketToLimit("BUY", 1))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.Stop("SELL", 1, 34.4))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.StopLimit("BUY", 1, 35, 33))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.StopWithProtection("SELL", 1, 45))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.SweepToFill("BUY", 1, 35))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.TrailingStop("SELL", 1, 0.5, 30))
-        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-                        OrderSamples.TrailingStopLimit("BUY", 1, 2, 5, 50))
-        self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtIse(),
-                        OrderSamples.Volatility("SELL", 1, 5, 2))
-
-        self.bracketSample()
-
-        self.conditionSamples()
-
-        self.hedgeSample()
-
-        # NOTE: the following orders are not supported for Paper Trading
-        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), OrderSamples.AtAuction("BUY", 100, 30.0))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionLimit("SELL", 10, 30.0, 2))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionPeggedToStock("BUY", 10, 30, 0.5))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionRelative("SELL", 10, 0.6))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.SimpleFuture(), OrderSamples.MarketWithProtection("BUY", 1))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), OrderSamples.PassiveRelative("BUY", 1, 0.5))
-
-        # 208813720 (GOOG)
+        # # ! [faorderprofile]
+        # faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100)
+        # faOrderProfile.faProfile = "Percent_60_40"
+        # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), faOrderProfile)
+        # # ! [faorderprofile]
+        #
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
+        #                 OrderSamples.Block("BUY", 50, 20))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
+        #                 OrderSamples.BoxTop("SELL", 10))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.FutureComboContract(),
+        #                 OrderSamples.ComboLimitOrder("SELL", 1, 1, False))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.StockComboContract(),
+        #                 OrderSamples.ComboMarketOrder("BUY", 1, True))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionComboContract(),
+        #                 OrderSamples.ComboMarketOrder("BUY", 1, False))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.StockComboContract(),
+        #                 OrderSamples.LimitOrderForComboWithLegPrices("BUY", 1, [10, 5], True))
         # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
-        #    OrderSamples.PeggedToBenchmark("SELL", 100, 33, True, 0.1, 1, 208813720, "ISLAND", 750, 650, 800))
-
-        # STOP ADJUSTABLE ORDERS
-        # Order stpParent = OrderSamples.Stop("SELL", 100, 30)
-        # stpParent.OrderId = self.nextOrderId()
-        # self.placeOrder(stpParent.OrderId, ContractSamples.EuropeanStock(), stpParent)
-        # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToStop(stpParent, 35, 32, 33))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToStopLimit(stpParent, 35, 33, 32, 33))
-        # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrail(stpParent, 35, 32, 32, 1, 0))
-
-        # Order lmtParent = OrderSamples.LimitOrder("BUY", 100, 30)
-        # lmtParent.OrderId = self.nextOrderId()
-        # self.placeOrder(lmtParent.OrderId, ContractSamples.EuropeanStock(), lmtParent)
-        # Attached TRAIL adjusted can only be attached to LMT parent orders.
-        # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008))
-        self.testAlgoSamples()
+        #                 OrderSamples.Discretionary("SELL", 1, 45, 0.5))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
+        #                 OrderSamples.LimitIfTouched("BUY", 1, 30, 34))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.LimitOnClose("SELL", 1, 34))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.LimitOnOpen("BUY", 1, 35))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketIfTouched("BUY", 1, 30))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketOnClose("SELL", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketOnOpen("BUY", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketOrder("SELL", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketToLimit("BUY", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtIse(),
+        #                 OrderSamples.MidpointMatch("BUY", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.MarketToLimit("BUY", 1))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.Stop("SELL", 1, 34.4))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.StopLimit("BUY", 1, 35, 33))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.StopWithProtection("SELL", 1, 45))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.SweepToFill("BUY", 1, 35))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.TrailingStop("SELL", 1, 0.5, 30))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        #                 OrderSamples.TrailingStopLimit("BUY", 1, 2, 5, 50))
+        # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtIse(),
+        #                 OrderSamples.Volatility("SELL", 1, 5, 2))
+        #
+        # self.bracketSample()
+        #
+        # self.conditionSamples()
+        #
+        # self.hedgeSample()
+        #
+        # # NOTE: the following orders are not supported for Paper Trading
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), OrderSamples.AtAuction("BUY", 100, 30.0))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionLimit("SELL", 10, 30.0, 2))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionPeggedToStock("BUY", 10, 30, 0.5))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(), OrderSamples.AuctionRelative("SELL", 10, 0.6))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.SimpleFuture(), OrderSamples.MarketWithProtection("BUY", 1))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), OrderSamples.PassiveRelative("BUY", 1, 0.5))
+        #
+        # # 208813720 (GOOG)
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.USStock(),
+        # #    OrderSamples.PeggedToBenchmark("SELL", 100, 33, True, 0.1, 1, 208813720, "ISLAND", 750, 650, 800))
+        #
+        # # STOP ADJUSTABLE ORDERS
+        # # Order stpParent = OrderSamples.Stop("SELL", 100, 30)
+        # # stpParent.OrderId = self.nextOrderId()
+        # # self.placeOrder(stpParent.OrderId, ContractSamples.EuropeanStock(), stpParent)
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToStop(stpParent, 35, 32, 33))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToStopLimit(stpParent, 35, 33, 32, 33))
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrail(stpParent, 35, 32, 32, 1, 0))
+        #
+        # # Order lmtParent = OrderSamples.LimitOrder("BUY", 100, 30)
+        # # lmtParent.OrderId = self.nextOrderId()
+        # # self.placeOrder(lmtParent.OrderId, ContractSamples.EuropeanStock(), lmtParent)
+        # # Attached TRAIL adjusted can only be attached to LMT parent orders.
+        # # self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008))
+        # self.testAlgoSamples()
 
         # Cancel all orders for all accounts ***/
         # ! [reqglobalcancel]
@@ -1543,9 +1543,9 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqglobalcancel]
 
         # Request the day's executions ***/
-        # ! [reqexecutions]
-        self.reqExecutions(10001, ExecutionFilter())
-        # ! [reqexecutions]
+        # # ! [reqexecutions]
+        # self.reqExecutions(10001, ExecutionFilter())
+        # # ! [reqexecutions]
 
     def orderOperations_cancel(self):
         # ! [cancelorder]
